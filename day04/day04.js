@@ -4,7 +4,7 @@ const part1 = () => {
     reader.readFile("input.txt", (err, data) => {
         const games = new String(data)
             .split("\r\n")
-            .map((x) => x.split(": ")[1].replace(/ [ ]+/g, " ").split(" | "))
+            .map((x) => x.split(": ")[1].split(" | "))
 
         let cardLeft = [];
         let cardRight = [];
@@ -12,8 +12,8 @@ const part1 = () => {
         let count = 0;
 
         for(let i = 0; i < games.length; i++){
-            cardLeft = games[i][0].split(" ");
-            cardRight = games[i][1].split(" ");
+            cardLeft = games[i][0].split();
+            cardRight = games[i][1].split();
             winning = [...cardLeft].filter(x => cardRight.includes(x));
 
             if(winning.length > 0){
@@ -30,7 +30,7 @@ const part2 = () => {
     reader.readFile("input.txt", (err, data) => {
         const games = new String(data)
             .split("\r\n")
-            .map((x) => x.split(": ")[1].replace(/ [ ]+/g, " ").split(" | "))
+            .map((x) => x.split(": ")[1].split(" | "))
 
 
         let cardLeft = [];
@@ -39,8 +39,8 @@ const part2 = () => {
         let cards = new Array(games.length).fill(0); 
         
         for(let i = 0; i < games.length; i++){
-            cardLeft = games[i][0].split(" ");
-            cardRight = games[i][1].split(" ");
+            cardLeft = games[i][0].split();
+            cardRight = games[i][1].split();
             winning = [...cardLeft].filter(x => cardRight.includes(x));
 
             cards[i]++;
