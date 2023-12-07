@@ -1,15 +1,21 @@
 import functools
 
+
 def hand_type_joker(hand):
     if "J" not in hand:
         return hand_type(hand)
-    
+
     hand_set = set(hand)
 
     if len(hand_set) == 1 or len(hand_set) == 2:
         return 0
     if len(hand_set) == 3:
-        return 1
+        jokers = hand.count("J")
+        hand_set.remove("J")
+        if hand.count(list(hand_set)[0]) == 2 and jokers == 1:
+            return 2
+        else:
+            return 1
     if len(hand_set) == 4:
         return 3
     if len(hand_set) == 5:
@@ -39,8 +45,11 @@ def hand_type(hand):
 
     return -1
 
+
 type_function = hand_type
 cards = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
+
+
 def compare_hands(a, b):
     hand_a = a[0]
     hand_b = b[0]
@@ -59,9 +68,8 @@ def compare_hands(a, b):
                 return 1
             elif cards.index(card) > cards.index(hand_b[idx]):
                 return -1
-
-    
     return 0
+
 
 def day07():
     with open("input.txt") as file:
@@ -74,7 +82,8 @@ def day07():
 
     return count
 
-print(day07())
+
+# print(day07())
 type_function = hand_type_joker
 cards = ["A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2", "J"]
 print(day07())
