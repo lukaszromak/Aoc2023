@@ -1,17 +1,7 @@
 import random
 import copy
-import networkx as nx
-import matplotlib.pyplot as plt 
-
-def visualize_graph(edges):
-    graph = nx.Graph()
-    graph.add_edges_from(edges)
-    nx.draw_networkx(graph, pos=nx.spring_layout(graph))
-    plt.show()
-
 
 def parse_input(lines):
-    num_vertices = 0
     vertices = set()
     edges = []
 
@@ -63,15 +53,15 @@ def karger(_edges, num_vertices, cut):
     edges = None
     cut_found = 0
 
-    while cut_found != 3:
+    while cut_found != cut:
         edges, cut_found = contract(_edges, num_vertices)
 
     node1, node2 = next(edge for edge in edges if edge is not None)
-
+    
     return len(node1.split(",")) * len(node2.split(","))
 
 
 with open("input.txt") as file:
     lines = [x.strip() for x in file.readlines()]
     num_vertices, edges = parse_input(lines)
-    print("part1:", karger(edges, num_vertices, 3))
+    print(karger(edges, num_vertices, 3))
